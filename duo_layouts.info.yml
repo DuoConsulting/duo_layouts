@@ -1,0 +1,8 @@
+name: 'Duo Layouts'
+type: module
+description: 'Define custom layouts.'
+package: Duo
+# version: VERSION
+core: 8.x
+dependencies:
+  - drupal:layout_builder

@@ -1,0 +1,67 @@
+duo_layout_singlecol_section:
+  label: 'Single column'
+  path: layouts/singlecol_section
+  template: layout--singlecol-section
+  # library: duo_layouts/singlecol_section
+  class: '\Drupal\duo_layouts\Plugin\Layout\SingleColumnLayout'
+  category: 'Duo Layouts'
+  default_region: first
+  icon_map:
+    - [first]
+  regions:
+    first:
+      label: First
+
+duo_layout_twocol_section:
+  label: 'Two columns'
+  path: layouts/twocol_section
+  template: layout--twocol-section
+  library: duo_layouts/twocol_section
+  class: '\Drupal\duo_layouts\Plugin\Layout\TwoColumnLayout'
+  category: 'Duo Layouts'
+  default_region: first
+  icon_map:
+    - [first, second]
+  regions:
+    first:
+      label: First
+    second:
+      label: Second
+
+duo_layout_threecol_section:
+  label: 'Three columns'
+  path: layouts/threecol_section
+  template: layout--threecol-section
+  library: duo_layouts/threecol_section
+  class: '\Drupal\duo_layouts\Plugin\Layout\ThreeColumnLayout'
+  category: 'Duo Layouts'
+  default_region: first
+  icon_map:
+    - [first, second, third]
+  regions:
+    first:
+      label: First
+    second:
+      label: Second
+    third:
+      label: Third
+
+duo_layout_fourcol_section:
+  label: 'Four columns'
+  path: layouts/fourcol_section
+  template: layout--fourcol-section
+  library: duo_layouts/fourcol_section
+  class: '\Drupal\duo_layouts\Plugin\Layout\FourColumnLayout'
+  category: 'Duo Layouts'
+  default_region: first
+  icon_map:
+    - [first, second, third, fourth]
+  regions:
+    first:
+      label: First
+    second:
+      label: Second
+    third:
+      label: Third
+    fourth:
+      label: Fourth

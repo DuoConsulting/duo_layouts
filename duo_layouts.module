@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Implements hook_plugin_filter_TYPE__CONSUMER_alter().
+ */
+function duo_layouts_plugin_filter_layout__layout_builder_alter(array &$definitions, array $extra) {
+  // Remove layouts provide by layout discovery and layout builder that are not
+  // needed because of layouts provided by this module.
+  $duplicate_layouts = [
+    'layout_onecol',
+    'layout_twocol',
+    'layout_twocol_bricks',
+    'layout_threecol_25_50_25',
+    'layout_threecol_33_34_33',
+    'layout_twocol_section',
+    'layout_threecol_section',
+    'layout_fourcol_section',
+  ];
+
+  foreach ($duplicate_layouts as $duplicate_layout) {
+    /** @var \Drupal\Core\Layout\LayoutDefinition[] $definitions */
+    if (isset($definitions[$duplicate_layout])) {
+      if (in_array($definitions[$duplicate_layout]->getProvider(), ['layout_discovery', 'layout_builder'])) {
+        unset($definitions[$duplicate_layout]);
+      }
+    }
+  }
+}
