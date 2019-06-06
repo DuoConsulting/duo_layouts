@@ -2,7 +2,6 @@ duo_layout_singlecol_section:
   label: 'Single column'
   path: layouts/singlecol_section
   template: layout--singlecol-section
-  # library: duo_layouts/singlecol_section
   class: '\Drupal\duo_layouts\Plugin\Layout\SingleColumnLayout'
   category: 'Duo Layouts'
   default_region: first

@@ -11,6 +11,10 @@
  */
 #}
 {% if content %}
+  {% if content.heading %}
+    <h2 class="layout__heading">{{ content.heading }}</h2>
+  {% endif %}
+
   <div{{ attributes.addClass(classes) }}>
 
     {% if content.first %}

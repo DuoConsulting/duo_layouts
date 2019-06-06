@@ -18,15 +18,18 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    $max_width_classes = array_keys($this->getMaxWidthOptions());
+    $max_width_classes    = array_keys($this->getMaxWidthOptions());
+    $bg_colors            = array_keys($this->getBackgroundColors());
     $column_width_classes = array_keys($this->getColumnWidthOptions());
-    $top_margins = array_keys($this->getTopMarginOptions());
-    $bottom_margins = array_keys($this->getBottomMarginOptions());
+    $top_margins          = array_keys($this->getTopMarginOptions());
+    $bottom_margins       = array_keys($this->getBottomMarginOptions());
+
     return [
-      'max_width' => array_shift($max_width_classes),
-      'column_widths' => array_shift($column_width_classes),
-      'top_margin' => array_shift($top_margins),
-      'bottom_margin' => array_shift($bottom_margins),
+      'max_width'        => array_shift($max_width_classes),
+      'background_color' => array_shift($bg_colors),
+      'column_widths'    => array_shift($column_width_classes),
+      'top_margin'       => array_shift($top_margins),
+      'bottom_margin'    => array_shift($bottom_margins),
     ];
   }
 
@@ -34,12 +37,27 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form['heading'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Heading'),
+      '#default_value' => $this->configuration['heading'],
+      '#description' => $this->t('Specify a heading for this section.'),
+    ];
+
     $form['max_width'] = [
       '#type' => 'select',
       '#title' => $this->t('Max Width'),
       '#default_value' => $this->configuration['max_width'],
       '#options' => $this->getMaxWidthOptions(),
       '#description' => $this->t('Specify the max width for this section.'),
+    ];
+
+    $form['background_color'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Background Color'),
+      '#default_value' => $this->configuration['background_color'],
+      '#options' => $this->getBackgroundColors(),
+      '#description' => $this->t('Select a background color for this section.'),
     ];
 
     $form['column_widths'] = [
@@ -79,7 +97,9 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    $this->configuration['heading'] = $form_state->getValue('heading');
     $this->configuration['max_width'] = $form_state->getValue('max_width');
+    $this->configuration['background_color'] = $form_state->getValue('background_color');
     $this->configuration['column_widths'] = $form_state->getValue('column_widths');
     $this->configuration['top_margin'] = $form_state->getValue('top_margin');
     $this->configuration['bottom_margin'] = $form_state->getValue('bottom_margin');
@@ -90,14 +110,17 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    */
   public function build(array $regions) {
     $build = parent::build($regions);
+    $build['heading'] = $this->configuration['heading'];
     $build['#attributes']['class'] = [
       'layout',
       $this->getPluginDefinition()->getTemplate(),
       $this->getPluginDefinition()->getTemplate() . '--' . $this->configuration['column_widths'],
       $this->configuration['max_width'],
+      $this->configuration['background_color'],
       $this->configuration['top_margin'],
       $this->configuration['bottom_margin'],
     ];
+
     return $build;
   }
 
@@ -112,20 +135,35 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    */
   protected function getMaxWidthOptions() {
     return [
-      'c-width-default' => 'Default',
-      'c-width-fs' => 'Fullscreen',
-      'c-width12' => '100%',
-      'c-width11' => '92%',
-      'c-width10' => '83%',
-      'c-width9' => '75%',
-      'c-width8' => '66%',
-      'c-width7' => '58%',
-      'c-width6' => '50%',
-      'c-width5' => '42%',
-      'c-width4' => '33%',
-      'c-width3' => '25%',
-      'c-width2' => '17%',
-      'c-width1' => '8%',
+      'layout--width-default' => 'Default',
+      'layout--width-fs' => 'Fullscreen',
+      'layout--width-100' => '100%',
+      'layout--width-90' => '90%',
+      'layout--width-80' => '80%',
+      'layout--width-70' => '70%',
+      'layout--width-60' => '60%',
+      'layout--width-50' => '50%',
+      'layout--width-40' => '40%',
+      'layout--width-30' => '30%',
+      'layout--width-20' => '20%',
+      'layout--width-10' => '10%',
+    ];
+  }
+
+  /**
+   * Gets the background color options for the configuration form.
+   *
+   * The first option will be used as the default value.
+   *
+   * @return string[]
+   *   The background colors options array where the keys are strings that will be added to
+   *   the CSS classes and the values are the human readable labels.
+   */
+  protected function getBackgroundColors() {
+    return [
+      '' => 'None',
+      'c-bgd-color-1' => 'Color 1',
+      'c-bgd-color-2' => 'Color 2',
     ];
   }
 
@@ -140,10 +178,10 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    */
   protected function getTopMarginOptions() {
     return [
-      'c-padding-top-default' => 'Default',
-      'c-padding-top-half' => 'Half',
-      'c-padding-top-quarter' => 'Quarter',
-      'c-padding-top-zero' => 'Zero',
+      'layout--padding-top-default' => 'Default',
+      'layout--padding-top-half' => 'Half',
+      'layout--padding-top-quarter' => 'Quarter',
+      'layout--padding-top-zero' => 'Zero',
     ];
   }
 
@@ -158,10 +196,10 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    */
   protected function getBottomMarginOptions() {
     return [
-      'c-padding-bottom-default' => 'Default',
-      'c-padding-bottom-half' => 'Half',
-      'c-padding-bottom-quarter' => 'Quarter',
-      'c-padding-bottom-zero' => 'Zero',
+      'layout--padding-bottom-default' => 'Default',
+      'layout--padding-bottom-half' => 'Half',
+      'layout--padding-bottom-quarter' => 'Quarter',
+      'layout--padding-bottom-zero' => 'Zero',
     ];
   }
 
