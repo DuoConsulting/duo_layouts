@@ -135,8 +135,8 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    */
   protected function getMaxWidthOptions() {
     return [
-      'layout--width-default' => 'Default',
-      'layout--width-fs' => 'Fullscreen',
+      'layout--width-default' => t('Default'),
+      'layout--width-fs' => t('Fullscreen'),
       'layout--width-100' => '100%',
       'layout--width-90' => '90%',
       'layout--width-80' => '80%',
@@ -160,11 +160,18 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    *   the CSS classes and the values are the human readable labels.
    */
   protected function getBackgroundColors() {
-    return [
-      '' => 'None',
-      'c-bgd-color-1' => 'Color 1',
-      'c-bgd-color-2' => 'Color 2',
-    ];
+    $config = \Drupal::config('duo_layouts.adminsettings');
+    $config_options = $config->get('duo_layouts_background_colors');
+
+    $lines = explode("\n", $config_options);
+
+    $options = array('' => t('None'));
+    foreach ($lines as $i => $value) {
+      $option = explode('|', $value);
+      $options[$option[0]] = t($option[1]);
+    }
+
+    return $options;
   }
 
   /**
@@ -178,10 +185,10 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    */
   protected function getTopMarginOptions() {
     return [
-      'layout--padding-top-default' => 'Default',
-      'layout--padding-top-half' => 'Half',
-      'layout--padding-top-quarter' => 'Quarter',
-      'layout--padding-top-zero' => 'Zero',
+      'layout--padding-top-default' => t('Default'),
+      'layout--padding-top-half' => t('Half'),
+      'layout--padding-top-quarter' => t('Quarter'),
+      'layout--padding-top-zero' => t('Zero'),
     ];
   }
 
@@ -196,10 +203,10 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    */
   protected function getBottomMarginOptions() {
     return [
-      'layout--padding-bottom-default' => 'Default',
-      'layout--padding-bottom-half' => 'Half',
-      'layout--padding-bottom-quarter' => 'Quarter',
-      'layout--padding-bottom-zero' => 'Zero',
+      'layout--padding-bottom-default' => t('Default'),
+      'layout--padding-bottom-half' => t('Half'),
+      'layout--padding-bottom-quarter' => t('Quarter'),
+      'layout--padding-bottom-zero' => t('Zero'),
     ];
   }
 

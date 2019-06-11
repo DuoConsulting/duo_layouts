@@ -1,0 +1,6 @@
+duo_layouts.admin_settings_form:
+  title: 'Duo Layouts Admin'
+  route_name: duo_layouts.admin_settings_form
+  description: 'Configuration for the Duo Layouts module.'
+  parent: system.admin_config_content
+  weight: 99
