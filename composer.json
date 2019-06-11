@@ -1,0 +1,8 @@
+{
+  "name": "DuoConsulting/duo_layouts",
+  "description": "Provides custom layouts.",
+  "type": "drupal-module",
+  "keywords": ["Drupal", "Layouts"],
+  "homepage": "https://www.duoconsulting.com",
+  "license": "GPL-2.0+"
+}
