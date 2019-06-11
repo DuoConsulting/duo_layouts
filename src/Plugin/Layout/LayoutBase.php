@@ -39,7 +39,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form['heading'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Heading'),
+      '#title' => $this->t('Section Heading'),
       '#default_value' => $this->configuration['heading'],
       '#description' => $this->t('Specify a heading for this section.'),
     ];
