@@ -1,3 +1,15 @@
+duo_layout_simple_section:
+  label: 'Hero section'
+  path: layouts/simple_section
+  template: layout--simple-section
+  category: 'Duo Layouts'
+  default_region: first
+  icon_map:
+    - [first]
+  regions:
+    first:
+      label: First
+
 duo_layout_singlecol_section:
   label: 'Single column'
   path: layouts/singlecol_section

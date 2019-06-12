@@ -1,4 +1,9 @@
 # CSS libraries for Layout plugins.
+hero_section:
+  version: 1.0
+  css:
+    theme:
+      layouts/simple_section/simple_section.css: {}
 twocol_section:
   version: 1.0
   css:
