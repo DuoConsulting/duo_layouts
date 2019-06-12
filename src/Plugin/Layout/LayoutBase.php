@@ -110,7 +110,9 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    */
   public function build(array $regions) {
     $build = parent::build($regions);
-    $build['heading'] = $this->configuration['heading'];
+    $build['heading'] = [
+      '#markup' => $this->configuration['heading'],
+    ];
     $build['#attributes']['class'] = [
       'layout',
       $this->getPluginDefinition()->getTemplate(),
