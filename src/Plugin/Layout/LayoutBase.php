@@ -5,6 +5,7 @@ namespace Drupal\duo_layouts\Plugin\Layout;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Layout\LayoutDefault;
 use Drupal\Core\Plugin\PluginFormInterface;
+use Drupal\File\Entity\File;
 
 /**
  * Base class of layouts with configurable widths.
@@ -60,6 +61,19 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       '#description' => $this->t('Select a background color for this section.'),
     ];
 
+    $form['background_image'] = [
+      '#type' => 'managed_file',
+      '#name' => 'background_image',
+      '#title' => t('Background Image'),
+      '#size' => 20,
+      '#description' => t('Allows jpg, jpeg, png, and gif file formats.'),
+      '#upload_validators' => array(
+        'file_validate_extensions' => array('jpg jpeg png gif'),
+      ),
+      '#upload_location' => 'public://background_image/',
+      '#default_value' => array($this->configuration['background_image']),
+    ];
+
     $form['column_widths'] = [
       '#type' => 'select',
       '#title' => $this->t('Column Widths'),
@@ -100,6 +114,18 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     $this->configuration['heading'] = $form_state->getValue('heading');
     $this->configuration['max_width'] = $form_state->getValue('max_width');
     $this->configuration['background_color'] = $form_state->getValue('background_color');
+
+    // File handling.
+    $form_file = $form_state->getValue('background_image');
+    if (isset($form_file[0]) && !empty($form_file[0])) {
+      $file = File::load($form_file[0]);
+      $file->setPermanent();
+      $file->save();
+      $this->configuration['background_image'] = $file->id();
+    } else {
+      $this->configuration['background_image'] = '';
+    }
+
     $this->configuration['column_widths'] = $form_state->getValue('column_widths');
     $this->configuration['top_margin'] = $form_state->getValue('top_margin');
     $this->configuration['bottom_margin'] = $form_state->getValue('bottom_margin');
