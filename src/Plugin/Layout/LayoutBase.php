@@ -141,10 +141,12 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     ];
 
     // Get the file url for the background image.
-    $file = \Drupal\file\Entity\File::load($this->configuration['background_image']);
-    $build['#attributes']['background_image_url'] = [
-      $file->url(),
-    ];
+    if ($this->configuration['background_image']) {
+      $file = \Drupal\file\Entity\File::load($this->configuration['background_image']);
+      $build['#attributes']['background_image_url'] = [
+        $file->url(),
+      ];
+    }
 
     $build['#attributes']['class'] = [
       'layout',
