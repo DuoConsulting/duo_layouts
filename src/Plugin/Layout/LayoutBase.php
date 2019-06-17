@@ -139,6 +139,13 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     $build['heading'] = [
       '#markup' => $this->configuration['heading'],
     ];
+
+    // Get the file url for the background image.
+    $file = \Drupal\file\Entity\File::load($this->configuration['background_image']);
+    $build['#attributes']['background_image_url'] = [
+      $file->url(),
+    ];
+
     $build['#attributes']['class'] = [
       'layout',
       $this->getPluginDefinition()->getTemplate(),
