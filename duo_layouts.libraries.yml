@@ -4,6 +4,11 @@ hero_section:
   css:
     theme:
       layouts/simple_section/simple_section.css: {}
+singlecol_section:
+  version: 1.0
+  css:
+    theme:
+      layouts/singlecol_section/singlecol_section.css: {}
 twocol_section:
   version: 1.0
   css:

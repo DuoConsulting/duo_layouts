@@ -26,6 +26,8 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     $bottom_margins       = array_keys($this->getBottomMarginOptions());
 
     return [
+      'background_image' => '',
+      'heading'          => '',
       'max_width'        => array_shift($max_width_classes),
       'background_color' => array_shift($bg_colors),
       'column_widths'    => array_shift($column_width_classes),
@@ -199,13 +201,15 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
   protected function getBackgroundColors() {
     $config = \Drupal::config('duo_layouts.adminsettings');
     $config_options = $config->get('duo_layouts_background_colors');
-
-    $lines = explode("\n", $config_options);
-
     $options = array('' => t('None'));
-    foreach ($lines as $i => $value) {
-      $option = explode('|', $value);
-      $options[$option[0]] = t($option[1]);
+
+    if ($config_options) {
+      $lines = explode("\n", $config_options);
+      
+      foreach ($lines as $i => $value) {
+        $option = explode('|', $value);
+        $options[$option[0]] = t($option[1]);
+      }
     }
 
     return $options;

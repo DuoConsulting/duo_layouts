@@ -10,12 +10,18 @@
  * @ingroup themeable
  */
 #}
+{%
+  set classes = [
+    'layout',
+    'layout--threecol-section',
+  ]
+%}
 {% if content %}
   {% if content.heading %}
     <h2 class="layout__heading">{{ content.heading }}</h2>
   {% endif %}
 
-  <div{{ attributes }} {% if attributes.background_image_url %}style="background-image: url({{ attributes.background_image_url }})"{% endif %}>
+  <div{{ attributes.addClass(classes) }} {% if attributes.background_image_url %}style="background-image: url({{ attributes.background_image_url }})"{% endif %}>
 
     {% if content.first %}
       <div {{ region_attributes.first.addClass('layout__region', 'layout__region--first') }}>

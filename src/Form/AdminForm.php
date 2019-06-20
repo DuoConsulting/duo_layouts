@@ -35,7 +35,7 @@ class AdminForm extends ConfigFormBase {
     $form['duo_layouts_background_colors'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Background Color Options'),
-      '#description' => $this->t('Enter section background color options as VALUE|OPTION (e.g., c-bgd-color-1|Color 1 - one per line).'),
+      '#description' => $this->t('Enter section background color options as VALUE|OPTION (e.g., "bgd-color-1|Yellow" - one per line).'),
       '#default_value' => $config->get('duo_layouts_background_colors'),
     ];
 
