@@ -3,17 +3,17 @@
  * Provides the layout styles for four-column layout section.
  */
 
-.layout--fourcol-section {
+.layout--fourcol-section > .layout__container > .layout__content {
   display: flex;
   flex-wrap: wrap;
 }
 
-.layout--fourcol-section > .layout__region {
+.layout--fourcol-section > .layout__container > .layout__content > .layout__region {
   flex: 0 1 100%;
 }
 
 @media screen and (min-width: 40em) {
-  .layout--fourcol-section > .layout__region {
+  .layout--fourcol-section > .layout__container > .layout__content > .layout__region {
     flex: 0 1 25%;
   }
 }

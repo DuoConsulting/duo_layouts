@@ -1,7 +1,7 @@
 duo_layout_simple_section:
   label: 'Hero section'
   path: layouts/simple_section
-  template: layout--simple-section
+  template: simple-section
   category: 'Duo Layouts'
   default_region: first
   icon_map:
@@ -13,7 +13,7 @@ duo_layout_simple_section:
 duo_layout_singlecol_section:
   label: 'Single column'
   path: layouts/singlecol_section
-  template: layout--singlecol-section
+  template: singlecol-section
   class: '\Drupal\duo_layouts\Plugin\Layout\SingleColumnLayout'
   category: 'Duo Layouts'
   default_region: first
@@ -26,7 +26,7 @@ duo_layout_singlecol_section:
 duo_layout_twocol_section:
   label: 'Two columns'
   path: layouts/twocol_section
-  template: layout--twocol-section
+  template: twocol-section
   library: duo_layouts/twocol_section
   class: '\Drupal\duo_layouts\Plugin\Layout\TwoColumnLayout'
   category: 'Duo Layouts'
@@ -42,7 +42,7 @@ duo_layout_twocol_section:
 duo_layout_threecol_section:
   label: 'Three columns'
   path: layouts/threecol_section
-  template: layout--threecol-section
+  template: threecol-section
   library: duo_layouts/threecol_section
   class: '\Drupal\duo_layouts\Plugin\Layout\ThreeColumnLayout'
   category: 'Duo Layouts'
@@ -60,7 +60,7 @@ duo_layout_threecol_section:
 duo_layout_fourcol_section:
   label: 'Four columns'
   path: layouts/fourcol_section
-  template: layout--fourcol-section
+  template: fourcol-section
   library: duo_layouts/fourcol_section
   class: '\Drupal\duo_layouts\Plugin\Layout\FourColumnLayout'
   category: 'Duo Layouts'

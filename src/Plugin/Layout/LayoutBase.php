@@ -152,8 +152,8 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
 
     $build['#attributes']['class'] = [
       'layout',
-      $this->getPluginDefinition()->getTemplate(),
-      $this->getPluginDefinition()->getTemplate() . '--' . $this->configuration['column_widths'],
+      'layout--' . $this->getPluginDefinition()->getTemplate(),
+      'layout--' . $this->getPluginDefinition()->getTemplate() . '--' . $this->configuration['column_widths'],
       $this->configuration['max_width'],
       $this->configuration['background_color'],
       $this->configuration['top_margin'],
