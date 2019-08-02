@@ -198,3 +198,13 @@
   padding-left: 0;
   padding-right: 0;
 }
+
+.layout--width-fs .layout__content {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.layout--width-fs .layout__region {
+  padding-left: 0;
+  padding-right: 0;
+}

@@ -148,6 +148,7 @@ $layout-breakpoint: $small-up;
   }
 }
 
+// Stretch everything edge-to-edge for full width layout.
 .layout--width-fs {
   .layout__container {
     max-width: none;
@@ -157,5 +158,15 @@ $layout-breakpoint: $small-up;
 
   .layout__heading {
     @extend %container;
+  }
+
+  .layout__content {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .layout__region {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
