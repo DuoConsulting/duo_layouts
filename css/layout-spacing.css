@@ -1,4 +1,4 @@
-.node--type-layout .layout__container, .layout--width-fs .layout__heading {
+.page-node-type-layout .layout__container, .layout--width-fs .layout__heading {
   box-sizing: border-box;
   margin: 0 auto;
   max-width: 77.5rem;

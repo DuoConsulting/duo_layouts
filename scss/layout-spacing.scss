@@ -22,8 +22,11 @@ $layout-breakpoint: $small-up;
 }
 
 .layout__container {
-  // Some content types need this to contain the max width of the content.
-  .node--type-layout & {
+  // Some content types need this to contain the max width of the content. If we
+  // use layout sections in a basic page that has sidebars, for example, we
+  // don't need or want to restrict the max width of the layout content and we
+  // don't need outer padding.
+  .page-node-type-layout & {
     @extend %container;
   }
 }

@@ -13,15 +13,11 @@
 #}
 {% if content %}
 
-  <div class="layout__container">
+  <div{{ attributes.addClass('layout--simple-section') }}>
 
-    <div{{ attributes.addClass('layout--simple-section') }}>
-
-      {% if content.first %}
-        {{ content.first }}
-      {% endif %}
-
-    </div>
+    {% if content.first %}
+      {{ content.first }}
+    {% endif %}
 
   </div>
   
