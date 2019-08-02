@@ -1,0 +1,60 @@
+{#
+/**
+ * @file
+ * A generic template for sections. This will be extend by each of our layout
+ * templates.
+ *
+ * Available variables:
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ *
+ * @ingroup themeable
+ */
+#}
+{% set classes = [] %}
+
+{% if attributes.background_video_url %}
+  {% set classes = classes|merge(['layout--video']) %}
+{% endif %}
+
+{% if attributes.background_image_url %}
+  {% set classes = classes|merge(['layout--image']) %}
+{% endif %}
+
+{% if content %}
+
+  <div{{ attributes.addClass(classes) }} {% if attributes.background_image_url %}style="background-image: url({{ attributes.background_image_url }})"{% endif %}>
+
+    {% if attributes.background_video_url %}
+      <div class="layout__video">
+        <video preload="auto" autoplay loop muted>
+          <source src="{{ attributes.background_video_url }}" />
+        </video>
+      </div>
+    {% endif %}
+
+    {% if attributes.background_image_url %}
+      <div class="layout__image">
+        <img src="{{ attributes.background_image_url }}" alt="" />
+      </div>
+    {% endif %}
+
+    <div class="layout__container">
+
+      {% if content.heading %}
+        <h2 class="layout__heading">{{ content.heading }}</h2>
+      {% endif %}
+
+      <div class="layout__content">
+
+        {% block content %}
+          {# Render content here #}
+        {% endblock %}
+
+      </div>
+
+    </div>
+
+  </div>
+  
+{% endif %}

@@ -1,0 +1,108 @@
+// Styles for layout background images and videos.
+
+@import 'layout-variables';
+
+.layout--image,
+.layout--video {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  z-index: 0;
+
+  &:before {
+    content: ' ';
+    height: 100%;
+    left: 0;
+    opacity: 0.75;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .layout__container {
+    position: relative;
+    z-index: 20;
+  }
+}
+
+.layout--video {
+  &.layout--image {
+    @media #{$small-up} {
+      // Because for some reason Chrome shows a couple pixels of the background image below the video
+      background-image: none !important;
+
+      .layout__image {
+        display: none;
+      }
+    }
+  }
+}
+
+.layout__video {
+  @media #{$small-up} {
+    display: block;
+  }
+  display: none;
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  video {
+    height: auto !important; // To override inline styles assigned by module
+    left: 50%;
+    min-height: 100%;
+    min-width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: auto !important; // To override inline styles assigned by module
+  }
+}
+
+// Background images
+.layout__image {
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  img {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+  }
+}
+
+// Parallax
+.layout--parallax {
+  background-attachment: fixed;
+}
+
+// IE doesn't support object-fit:cover, If object-fit is supported, and if we
+// are not displaying a parallax background, then hide the background image.
+
+// Replace the following statement with this once we are supporting parallax
+// background images.
+// html.object-fit .layout--image.layout-no-parallax {
+//   background-image: none !important;
+// }
+
+html.object-fit .layout--image {
+  background-image: none !important;
+}
+
+// If object fit is not supported, or if we are using parallax, hide the image
+// field.
+html.no-object-fit .layout--image .layout__image,
+.layout--image.layout--parallax .layout__image {
+  display: none;
+}

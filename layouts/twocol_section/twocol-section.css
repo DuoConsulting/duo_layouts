@@ -9,6 +9,7 @@
 }
 
 .layout--twocol-section > .layout__container > .layout__content > .layout__region {
+  box-sizing: border-box;
   flex: 0 1 100%;
 }
 

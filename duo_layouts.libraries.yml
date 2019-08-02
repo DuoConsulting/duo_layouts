@@ -1,39 +1,42 @@
 # CSS libraries for Layout plugins.
-layouts_base:
-  version: 1.0
-  css:
-    theme:
-      css/layouts.css: {}
 hero_section:
   version: 1.0
   css:
     theme:
-      layouts/simple_section/simple_section.css: {}
+      layouts/simple_section/simple-section.css: {}
 singlecol_section:
   version: 1.0
   css:
     theme:
-      layouts/singlecol_section/singlecol_section.css: {}
-  dependencies:
-    - duo_layouts/layouts_base
+      css/layout-backgrounds.css: {}
+      css/layout-spacing.css: {}
+      layouts/singlecol_section/singlecol-section.css: {}
+  js:
+    js/layouts.js: {}
 twocol_section:
   version: 1.0
   css:
     theme:
-      layouts/twocol_section/twocol_section.css: {}
-  dependencies:
-    - duo_layouts/layouts_base
+      css/layout-backgrounds.css: {}
+      css/layout-spacing.css: {}
+      layouts/twocol_section/twocol-section.css: {}
+  js:
+    js/layouts.js: {}
 threecol_section:
   version: 1.0
   css:
     theme:
-      layouts/threecol_section/threecol_section.css: {}
-  dependencies:
-    - duo_layouts/layouts_base
+      css/layout-backgrounds.css: {}
+      css/layout-spacing.css: {}
+      layouts/threecol_section/threecol-section.css: {}
+  js:
+    js/layouts.js: {}
 fourcol_section:
   version: 1.0
   css:
     theme:
-      layouts/fourcol_section/fourcol_section.css: {}
-  dependencies:
-    - duo_layouts/layouts_base
+      css/layout-backgrounds.css: {}
+      css/layout-spacing.css: {}
+      layouts/fourcol_section/fourcol-section.css: {}
+  js:
+    js/layouts.js: {}

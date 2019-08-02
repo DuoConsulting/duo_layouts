@@ -27,6 +27,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
 
     return [
       'background_image' => '',
+      'background_video' => '',
       'heading'          => '',
       'max_width'        => array_shift($max_width_classes),
       'background_color' => array_shift($bg_colors),
@@ -74,6 +75,19 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       ),
       '#upload_location' => 'public://background_image/',
       '#default_value' => array($this->configuration['background_image']),
+    ];
+
+    $form['background_video'] = [
+      '#type' => 'managed_file',
+      '#name' => 'background_video',
+      '#title' => t('Background Video'),
+      '#size' => 20,
+      '#description' => t('Allows mp4 file format.'),
+      '#upload_validators' => array(
+        'file_validate_extensions' => array('mp4'),
+      ),
+      '#upload_location' => 'public://background_video/',
+      '#default_value' => array($this->configuration['background_video']),
     ];
 
     $form['column_widths'] = [
@@ -128,6 +142,16 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       $this->configuration['background_image'] = '';
     }
 
+    $video_file = $form_state->getValue('background_video');
+    if (isset($video_file[0]) && !empty($video_file[0])) {
+      $file = File::load($video_file[0]);
+      $file->setPermanent();
+      $file->save();
+      $this->configuration['background_video'] = $file->id();
+    } else {
+      $this->configuration['background_video'] = '';
+    }
+
     $this->configuration['column_widths'] = $form_state->getValue('column_widths');
     $this->configuration['top_margin'] = $form_state->getValue('top_margin');
     $this->configuration['bottom_margin'] = $form_state->getValue('bottom_margin');
@@ -146,6 +170,14 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     if ($this->configuration['background_image']) {
       $file = \Drupal\file\Entity\File::load($this->configuration['background_image']);
       $build['#attributes']['background_image_url'] = [
+        $file->url(),
+      ];
+    }
+
+    // Get the file url for the background video.
+    if ($this->configuration['background_video']) {
+      $file = \Drupal\file\Entity\File::load($this->configuration['background_video']);
+      $build['#attributes']['background_video_url'] = [
         $file->url(),
       ];
     }

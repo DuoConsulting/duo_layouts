@@ -13,7 +13,8 @@ var autoprefixer = require('gulp-autoprefixer');
  ************************/
 
 var stylesSrc = [
-  './scss/layouts.scss'
+  './scss/layout-spacing.scss',
+  './scss/layout-backgrounds.scss',
 ];
 
 /************************
