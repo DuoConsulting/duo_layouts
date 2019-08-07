@@ -8,7 +8,7 @@ singlecol_section:
   version: 1.0
   css:
     theme:
-      css/layout-backgrounds.css: {}
+      css/layout-base.css: {}
       css/layout-spacing.css: {}
       layouts/singlecol_section/singlecol-section.css: {}
   js:
@@ -17,7 +17,7 @@ twocol_section:
   version: 1.0
   css:
     theme:
-      css/layout-backgrounds.css: {}
+      css/layout-base.css: {}
       css/layout-spacing.css: {}
       layouts/twocol_section/twocol-section.css: {}
   js:
@@ -26,7 +26,7 @@ threecol_section:
   version: 1.0
   css:
     theme:
-      css/layout-backgrounds.css: {}
+      css/layout-base.css: {}
       css/layout-spacing.css: {}
       layouts/threecol_section/threecol-section.css: {}
   js:
@@ -35,7 +35,7 @@ fourcol_section:
   version: 1.0
   css:
     theme:
-      css/layout-backgrounds.css: {}
+      css/layout-base.css: {}
       css/layout-spacing.css: {}
       layouts/fourcol_section/fourcol-section.css: {}
   js:

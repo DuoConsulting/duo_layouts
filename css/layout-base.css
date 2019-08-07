@@ -9,10 +9,11 @@
 
 .layout--image:before,
 .layout--video:before {
+  background-color: black;
   content: ' ';
   height: 100%;
   left: 0;
-  opacity: 0.75;
+  opacity: 0.5;
   position: absolute;
   top: 0;
   width: 100%;
@@ -89,4 +90,51 @@ html.object-fit .layout--image {
 html.no-object-fit .layout--image .layout__image,
 .layout--image.layout--parallax .layout__image {
   display: none;
+}
+
+.layout--text-light * {
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.layout--text-light * .contextual-links a {
+  color: #222222 !important;
+}
+
+.layout--text-light * a,
+.layout--text-light * a:focus,
+.layout--text-light * a:hover {
+  color: #ffffff !important;
+}
+
+.layout--text-light * a:focus,
+.layout--text-light * a:hover {
+  text-decoration: underline;
+}
+
+.layout--text-light * .field--type-text-long a,
+.layout--text-light * .field--type-text-with-summary a,
+.layout--text-light * .links a {
+  text-decoration: underline;
+}
+
+.layout--text-dark * {
+  border-color: #222222 !important;
+  color: #222222 !important;
+}
+
+.layout--text-dark * .contextual-links a {
+  color: #222222 !important;
+}
+
+.layout--text-dark * a,
+.layout--text-dark * a:focus,
+.layout--text-dark * a:hover {
+  color: #222222 !important;
+}
+
+.layout--text-dark * .field--type-text-long a,
+.layout--text-dark * .field--type-text-with-summary a,
+.layout--text-dark * .links a {
+  text-decoration: underline;
 }

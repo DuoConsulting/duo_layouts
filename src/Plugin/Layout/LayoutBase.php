@@ -21,6 +21,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
   public function defaultConfiguration() {
     $max_width_classes    = array_keys($this->getMaxWidthOptions());
     $bg_colors            = array_keys($this->getBackgroundColors());
+    $text_colors          = array_keys($this->getTextColors());
     $column_width_classes = array_keys($this->getColumnWidthOptions());
     $top_margins          = array_keys($this->getTopMarginOptions());
     $bottom_margins       = array_keys($this->getBottomMarginOptions());
@@ -31,6 +32,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       'heading'          => '',
       'max_width'        => array_shift($max_width_classes),
       'background_color' => array_shift($bg_colors),
+      'text_color'       => array_shift($text_colors),
       'column_widths'    => array_shift($column_width_classes),
       'top_margin'       => array_shift($top_margins),
       'bottom_margin'    => array_shift($bottom_margins),
@@ -62,6 +64,14 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       '#default_value' => $this->configuration['background_color'],
       '#options' => $this->getBackgroundColors(),
       '#description' => $this->t('Select a background color for this section.'),
+    ];
+
+    $form['text_color'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Text Color'),
+      '#default_value' => $this->configuration['text_color'],
+      '#options' => $this->getTextColors(),
+      '#description' => $this->t('Select a text color for this section.'),
     ];
 
     $form['background_image'] = [
@@ -130,6 +140,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     $this->configuration['heading'] = $form_state->getValue('heading');
     $this->configuration['max_width'] = $form_state->getValue('max_width');
     $this->configuration['background_color'] = $form_state->getValue('background_color');
+    $this->configuration['text_color'] = $form_state->getValue('text_color');
 
     // File handling.
     $form_file = $form_state->getValue('background_image');
@@ -188,6 +199,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       'layout--' . $this->getPluginDefinition()->getTemplate() . '--' . $this->configuration['column_widths'],
       $this->configuration['max_width'],
       $this->configuration['background_color'],
+      $this->configuration['text_color'],
       $this->configuration['top_margin'],
       $this->configuration['bottom_margin'],
     ];
@@ -246,6 +258,27 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
 
     return $options;
   }
+
+  /**
+   * Gets the text color options for the configuration form.
+   *
+   * The first option will be used as the default value.
+   *
+   * @return string[]
+   *   The text color options array where the keys are strings that will be added to
+   *   the CSS classes and the values are the human readable labels.
+   */
+  protected function getTextColors() {
+    // At some point, we can add the ability to pull in additional text colors
+    // from a config form (similar to background colors) and append them to the
+    // default Light/Dark values.
+    return [
+      'layout--text-default' => t('Default'),
+      'layout--text-light' => t('Light'),
+      'layout--text-dark' => t('Dark'),
+    ];
+  }
+
 
   /**
    * Gets the top margin options for the configuration form.

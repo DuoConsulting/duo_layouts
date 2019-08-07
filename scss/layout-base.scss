@@ -1,7 +1,8 @@
-// Styles for layout background images and videos.
+// Base styles for layouts.
 
 @import 'layout-variables';
 
+// Background images and vides.
 .layout--image,
 .layout--video {
   background-position: center center;
@@ -105,4 +106,57 @@ html.object-fit .layout--image {
 html.no-object-fit .layout--image .layout__image,
 .layout--image.layout--parallax .layout__image {
   display: none;
+}
+
+
+// Text Colors
+.layout--text-light * {
+  border-color: $text-light !important;
+  color: $text-light !important;
+
+  .contextual-links a {
+    color: $text-dark !important;
+  }
+
+  a,
+  a:focus,
+  a:hover {
+    color: $text-light !important;
+  }
+
+  a:focus,
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .field--type-text-long,
+  .field--type-text-with-summary,
+  .links {
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+
+.layout--text-dark * {
+  border-color: $text-dark !important;
+  color: $text-dark !important;
+
+  .contextual-links a {
+    color: $text-dark !important;
+  }
+
+  a,
+  a:focus,
+  a:hover {
+    color: $text-dark !important;
+  }
+
+  .field--type-text-long,
+  .field--type-text-with-summary,
+  .links {
+    a {
+      text-decoration: underline;
+    }
+  }
 }
