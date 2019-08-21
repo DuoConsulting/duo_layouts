@@ -77,27 +77,27 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     $form['background_image'] = [
       '#type' => 'managed_file',
       '#name' => 'background_image',
-      '#title' => t('Background Image'),
+      '#title' => $this->t('Background Image'),
       '#size' => 20,
-      '#description' => t('Allows jpg, jpeg, png, and gif file formats.'),
-      '#upload_validators' => array(
-        'file_validate_extensions' => array('jpg jpeg png gif'),
-      ),
+      '#description' => $this->t('Allows jpg, jpeg, png, and gif file formats.'),
+      '#upload_validators' => [
+        'file_validate_extensions' => ['jpg jpeg png gif'],
+      ],
       '#upload_location' => 'public://background_image/',
-      '#default_value' => array($this->configuration['background_image']),
+      '#default_value' => [$this->configuration['background_image']],
     ];
 
     $form['background_video'] = [
       '#type' => 'managed_file',
       '#name' => 'background_video',
-      '#title' => t('Background Video'),
+      '#title' => $this->t('Background Video'),
       '#size' => 20,
-      '#description' => t('Allows mp4 file format.'),
-      '#upload_validators' => array(
-        'file_validate_extensions' => array('mp4'),
-      ),
+      '#description' => $this->t('Allows mp4 file format.'),
+      '#upload_validators' => [
+        'file_validate_extensions' => ['mp4'],
+      ],
       '#upload_location' => 'public://background_video/',
-      '#default_value' => array($this->configuration['background_video']),
+      '#default_value' => [$this->configuration['background_video']],
     ];
 
     $form['column_widths'] = [
@@ -149,7 +149,8 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       $file->setPermanent();
       $file->save();
       $this->configuration['background_image'] = $file->id();
-    } else {
+    }
+    else {
       $this->configuration['background_image'] = '';
     }
 
@@ -159,7 +160,8 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       $file->setPermanent();
       $file->save();
       $this->configuration['background_video'] = $file->id();
-    } else {
+    }
+    else {
       $this->configuration['background_video'] = '';
     }
 
@@ -179,7 +181,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
 
     // Get the file url for the background image.
     if ($this->configuration['background_image']) {
-      $file = \Drupal\file\Entity\File::load($this->configuration['background_image']);
+      $file = File::load($this->configuration['background_image']);
       $build['#attributes']['background_image_url'] = [
         $file->url(),
       ];
@@ -187,7 +189,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
 
     // Get the file url for the background video.
     if ($this->configuration['background_video']) {
-      $file = \Drupal\file\Entity\File::load($this->configuration['background_video']);
+      $file = File::load($this->configuration['background_video']);
       $build['#attributes']['background_video_url'] = [
         $file->url(),
       ];
@@ -213,13 +215,13 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    * The first option will be used as the default value.
    *
    * @return string[]
-   *   The max widths options array where the keys are strings that will be added to
-   *   the CSS classes and the values are the human readable labels.
+   *   The max widths options array where the keys are strings that will be
+   *   added to the CSS classes and the values are the human readable labels.
    */
   protected function getMaxWidthOptions() {
     return [
-      'layout--width-default' => t('Default'),
-      'layout--width-fs' => t('Fullscreen'),
+      'layout--width-default' => $this->t('Default'),
+      'layout--width-fs' => $this->t('Fullscreen'),
       'layout--width-100' => '100%',
       'layout--width-90' => '90%',
       'layout--width-80' => '80%',
@@ -239,20 +241,20 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    * The first option will be used as the default value.
    *
    * @return string[]
-   *   The background colors options array where the keys are strings that will be added to
-   *   the CSS classes and the values are the human readable labels.
+   *   The background colors options array where the keys are strings that will
+   *   be added to the CSS classes and the values are the human readable labels.
    */
   protected function getBackgroundColors() {
     $config = \Drupal::config('duo_layouts.adminsettings');
     $config_options = $config->get('duo_layouts_background_colors');
-    $options = array('' => t('None'));
+    $options = ['' => $this->t('None')];
 
     if ($config_options) {
       $lines = explode("\n", $config_options);
-      
-      foreach ($lines as $i => $value) {
+
+      foreach ($lines as $value) {
         $option = explode('|', $value);
-        $options[$option[0]] = t($option[1]);
+        $options[$option[0]] = $option[1];
       }
     }
 
@@ -265,20 +267,19 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    * The first option will be used as the default value.
    *
    * @return string[]
-   *   The text color options array where the keys are strings that will be added to
-   *   the CSS classes and the values are the human readable labels.
+   *   The text color options array where the keys are strings that will be
+   *   added to the CSS classes and the values are the human readable labels.
    */
   protected function getTextColors() {
     // At some point, we can add the ability to pull in additional text colors
     // from a config form (similar to background colors) and append them to the
     // default Light/Dark values.
     return [
-      'layout--text-default' => t('Default'),
-      'layout--text-light' => t('Light'),
-      'layout--text-dark' => t('Dark'),
+      'layout--text-default' => $this->t('Default'),
+      'layout--text-light' => $this->t('Light'),
+      'layout--text-dark' => $this->t('Dark'),
     ];
   }
-
 
   /**
    * Gets the top margin options for the configuration form.
@@ -286,15 +287,15 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    * The first option will be used as the default value.
    *
    * @return string[]
-   *   The top margins options array where the keys are strings that will be added to
-   *   the CSS classes and the values are the human readable labels.
+   *   The top margins options array where the keys are strings that will be
+   *   added to the CSS classes and the values are the human readable labels.
    */
   protected function getTopMarginOptions() {
     return [
-      'layout--padding-top-default' => t('Default'),
-      'layout--padding-top-half' => t('Half'),
-      'layout--padding-top-quarter' => t('Quarter'),
-      'layout--padding-top-zero' => t('Zero'),
+      'layout--padding-top-default' => $this->t('Default'),
+      'layout--padding-top-half' => $this->t('Half'),
+      'layout--padding-top-quarter' => $this->t('Quarter'),
+      'layout--padding-top-zero' => $this->t('Zero'),
     ];
   }
 
@@ -304,15 +305,15 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    * The first option will be used as the default value.
    *
    * @return string[]
-   *   The bottom margins options array where the keys are strings that will be added to
-   *   the CSS classes and the values are the human readable labels.
+   *   The bottom margins options array where the keys are strings that will be
+   *   added to the CSS classes and the values are the human readable labels.
    */
   protected function getBottomMarginOptions() {
     return [
-      'layout--padding-bottom-default' => t('Default'),
-      'layout--padding-bottom-half' => t('Half'),
-      'layout--padding-bottom-quarter' => t('Quarter'),
-      'layout--padding-bottom-zero' => t('Zero'),
+      'layout--padding-bottom-default' => $this->t('Default'),
+      'layout--padding-bottom-half' => $this->t('Half'),
+      'layout--padding-bottom-quarter' => $this->t('Quarter'),
+      'layout--padding-bottom-zero' => $this->t('Zero'),
     ];
   }
 

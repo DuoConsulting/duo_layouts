@@ -5,4 +5,3 @@ package: Duo
 core: 8.x
 dependencies:
   - drupal:layout_builder
-version: '1.0'
