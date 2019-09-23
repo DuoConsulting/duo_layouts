@@ -2,10 +2,11 @@
 
 namespace Drupal\duo_layouts\Plugin\Layout;
 
+use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Layout\LayoutDefault;
 use Drupal\Core\Plugin\PluginFormInterface;
-use Drupal\File\Entity\File;
+use Drupal\file\Entity\File;
 
 /**
  * Base class of layouts with configurable widths.
@@ -147,7 +148,14 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     if (isset($form_file[0]) && !empty($form_file[0])) {
       $file = File::load($form_file[0]);
       $file->setPermanent();
-      $file->save();
+
+      try {
+        $file->save();
+      }
+      catch (EntityStorageException $e) {
+        \Drupal::logger('duo_layouts')->error($e->getMessage());
+      }
+
       $this->configuration['background_image'] = $file->id();
     }
     else {
@@ -158,7 +166,14 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     if (isset($video_file[0]) && !empty($video_file[0])) {
       $file = File::load($video_file[0]);
       $file->setPermanent();
-      $file->save();
+
+      try {
+        $file->save();
+      }
+      catch (EntityStorageException $e) {
+        \Drupal::logger('duo_layouts')->error($e->getMessage());
+      }
+
       $this->configuration['background_video'] = $file->id();
     }
     else {
@@ -183,7 +198,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     if ($this->configuration['background_image']) {
       $file = File::load($this->configuration['background_image']);
       $build['#attributes']['background_image_url'] = [
-        $file->url(),
+        $file->createFileUrl(),
       ];
     }
 
@@ -191,7 +206,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     if ($this->configuration['background_video']) {
       $file = File::load($this->configuration['background_video']);
       $build['#attributes']['background_video_url'] = [
-        $file->url(),
+        $file->createFileUrl(),
       ];
     }
 
