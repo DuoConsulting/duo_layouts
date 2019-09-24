@@ -144,40 +144,40 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     $this->configuration['text_color'] = $form_state->getValue('text_color');
 
     // File handling.
-    $form_file = $form_state->getValue('background_image');
-    if (isset($form_file[0]) && !empty($form_file[0])) {
-      $file = File::load($form_file[0]);
-      $file->setPermanent();
+    $file_fields = [
+      'background_image',
+      'background_video',
+    ];
 
-      try {
-        $file->save();
+    foreach ($file_fields as $field_id) {
+      $form_file = $form_state->getValue($field_id);
+      if (isset($form_file[0]) && !empty($form_file[0])) {
+        $file = File::load($form_file[0]);
+
+        // Set the file status as permanent if it is not already.
+        if(!$file->isPermanent()){
+          $file->setPermanent();
+        }
+
+        // Check file usage, and if it's empty, add new entry.
+        $file_usage = \Drupal::service('file.usage');
+        $usage = $file_usage->listUsage($file);
+        if(empty($usage)){
+          $file_usage->add($file,'', 'layout', $form_file[0]);
+        }
+
+        try {
+          $file->save();
+        }
+        catch (EntityStorageException $e) {
+          \Drupal::logger('duo_layouts')->error($e->getMessage());
+        }
+
+        $this->configuration[$field_id] = $file->id();
       }
-      catch (EntityStorageException $e) {
-        \Drupal::logger('duo_layouts')->error($e->getMessage());
+      else {
+        $this->configuration[$field_id] = '';
       }
-
-      $this->configuration['background_image'] = $file->id();
-    }
-    else {
-      $this->configuration['background_image'] = '';
-    }
-
-    $video_file = $form_state->getValue('background_video');
-    if (isset($video_file[0]) && !empty($video_file[0])) {
-      $file = File::load($video_file[0]);
-      $file->setPermanent();
-
-      try {
-        $file->save();
-      }
-      catch (EntityStorageException $e) {
-        \Drupal::logger('duo_layouts')->error($e->getMessage());
-      }
-
-      $this->configuration['background_video'] = $file->id();
-    }
-    else {
-      $this->configuration['background_video'] = '';
     }
 
     $this->configuration['column_widths'] = $form_state->getValue('column_widths');
