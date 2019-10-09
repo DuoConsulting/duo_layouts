@@ -31,6 +31,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       'background_image' => '',
       'background_video' => '',
       'heading'          => '',
+      'description'      => '',
       'max_width'        => array_shift($max_width_classes),
       'background_color' => array_shift($bg_colors),
       'text_color'       => array_shift($text_colors),
@@ -51,15 +52,20 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       '#description' => $this->t('Specify a heading for this section.'),
     ];
 
-    $form['max_width'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Max Width'),
-      '#default_value' => $this->configuration['max_width'],
-      '#options' => $this->getMaxWidthOptions(),
-      '#description' => $this->t('Specify the max width for this section.'),
+    $form['description'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Description'),
+      '#default_value' => $this->configuration['description'],
+      '#description' => $this->t('A description of this section. This text will be used by screen readers to describe the contents of the section.'),
     ];
 
-    $form['background_color'] = [
+    $form['background'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Colors & Background'),
+      '#open' => FALSE,
+    ];
+
+    $form['background']['background_color'] = [
       '#type' => 'select',
       '#title' => $this->t('Background Color'),
       '#default_value' => $this->configuration['background_color'],
@@ -67,7 +73,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       '#description' => $this->t('Select a background color for this section.'),
     ];
 
-    $form['text_color'] = [
+    $form['background']['text_color'] = [
       '#type' => 'select',
       '#title' => $this->t('Text Color'),
       '#default_value' => $this->configuration['text_color'],
@@ -75,7 +81,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       '#description' => $this->t('Select a text color for this section.'),
     ];
 
-    $form['background_image'] = [
+    $form['background']['background_image'] = [
       '#type' => 'managed_file',
       '#name' => 'background_image',
       '#title' => $this->t('Background Image'),
@@ -88,7 +94,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       '#default_value' => [$this->configuration['background_image']],
     ];
 
-    $form['background_video'] = [
+    $form['background']['background_video'] = [
       '#type' => 'managed_file',
       '#name' => 'background_video',
       '#title' => $this->t('Background Video'),
@@ -101,7 +107,21 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       '#default_value' => [$this->configuration['background_video']],
     ];
 
-    $form['column_widths'] = [
+    $form['layout'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Layout Options'),
+      '#open' => FALSE,
+    ];
+
+    $form['layout']['max_width'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Max Width'),
+      '#default_value' => $this->configuration['max_width'],
+      '#options' => $this->getMaxWidthOptions(),
+      '#description' => $this->t('Specify the max width for this section.'),
+    ];
+
+    $form['layout']['column_widths'] = [
       '#type' => 'select',
       '#title' => $this->t('Column Widths'),
       '#default_value' => $this->configuration['column_widths'],
@@ -109,7 +129,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       '#description' => $this->t('Specify the column widths for this section.'),
     ];
 
-    $form['top_margin'] = [
+    $form['layout']['top_margin'] = [
       '#type' => 'select',
       '#title' => $this->t('Top Margin'),
       '#default_value' => $this->configuration['top_margin'],
@@ -117,7 +137,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       '#description' => $this->t('Specify the top margin for this section.'),
     ];
 
-    $form['bottom_margin'] = [
+    $form['layout']['bottom_margin'] = [
       '#type' => 'select',
       '#title' => $this->t('Bottom Margin'),
       '#default_value' => $this->configuration['bottom_margin'],
@@ -139,9 +159,10 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->configuration['heading'] = $form_state->getValue('heading');
-    $this->configuration['max_width'] = $form_state->getValue('max_width');
-    $this->configuration['background_color'] = $form_state->getValue('background_color');
-    $this->configuration['text_color'] = $form_state->getValue('text_color');
+    $this->configuration['description'] = $form_state->getValue('description');
+    $this->configuration['max_width'] = $form_state->getValue(['layout', 'max_width']);
+    $this->configuration['background_color'] = $form_state->getValue(['background', 'background_color']);
+    $this->configuration['text_color'] = $form_state->getValue(['background', 'text_color']);
 
     // File handling.
     $file_fields = [
@@ -150,7 +171,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     ];
 
     foreach ($file_fields as $field_id) {
-      $form_file = $form_state->getValue($field_id);
+      $form_file = $form_state->getValue(['background', $field_id]);
       if (isset($form_file[0]) && !empty($form_file[0])) {
         $file = File::load($form_file[0]);
 
@@ -180,9 +201,9 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       }
     }
 
-    $this->configuration['column_widths'] = $form_state->getValue('column_widths');
-    $this->configuration['top_margin'] = $form_state->getValue('top_margin');
-    $this->configuration['bottom_margin'] = $form_state->getValue('bottom_margin');
+    $this->configuration['column_widths'] = $form_state->getValue(['layout', 'column_widths']);
+    $this->configuration['top_margin'] = $form_state->getValue(['layout', 'top_margin']);
+    $this->configuration['bottom_margin'] = $form_state->getValue(['layout', 'bottom_margin']);
   }
 
   /**
@@ -190,9 +211,16 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    */
   public function build(array $regions) {
     $build = parent::build($regions);
-    $build['heading'] = [
-      '#markup' => $this->configuration['heading'],
-    ];
+
+    if ($this->configuration['heading']) {
+      $build['heading'] = [
+        '#markup' => $this->configuration['heading'],
+      ];
+    }
+
+    if ($this->configuration['description']) {
+      $build['#attributes']['aria-label'] = $this->configuration['description'];
+    }
 
     // Get the file url for the background image.
     if ($this->configuration['background_image']) {
