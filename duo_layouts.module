@@ -5,6 +5,8 @@
  * Custom code for Duo Layouts.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_plugin_filter_TYPE__CONSUMER_alter().
  */
@@ -30,4 +32,11 @@ function duo_layouts_plugin_filter_layout__layout_builder_alter(array &$definiti
       }
     }
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function duo_layouts_form_node_layout_builder_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['revision']['#access'] = FALSE;
 }
