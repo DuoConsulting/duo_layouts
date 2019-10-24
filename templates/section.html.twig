@@ -45,13 +45,9 @@
         <h2 class="layout__heading">{{ content.heading }}</h2>
       {% endif %}
 
-      <div class="layout__content">
-
-        {% block content %}
-          {# Render content here #}
-        {% endblock %}
-
-      </div>
+      {% block content %}
+        {# Render content here #}
+      {% endblock %}
 
     </div>
 
