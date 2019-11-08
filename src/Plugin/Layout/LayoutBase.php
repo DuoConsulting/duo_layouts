@@ -26,6 +26,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     $column_width_classes = array_keys($this->getColumnWidthOptions());
     $top_margins          = array_keys($this->getTopMarginOptions());
     $bottom_margins       = array_keys($this->getBottomMarginOptions());
+    $bg_position          = array_keys($this->getBackgroundPositions());
 
     return [
       'background_image' => '',
@@ -34,6 +35,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       'description'      => '',
       'max_width'        => array_shift($max_width_classes),
       'background_color' => array_shift($bg_colors),
+      'background_pos'   => array_shift($bg_position),
       'text_color'       => array_shift($text_colors),
       'column_widths'    => array_shift($column_width_classes),
       'top_margin'       => array_shift($top_margins),
@@ -107,6 +109,14 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       '#default_value' => [$this->configuration['background_video']],
     ];
 
+    $form['background']['background_pos'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Background Position'),
+      '#default_value' => $this->configuration['background_pos'],
+      '#options' => $this->getBackgroundPositions(),
+      '#description' => $this->t('Specify the background position for this section.'),
+    ];
+
     $form['layout'] = [
       '#type' => 'details',
       '#title' => $this->t('Layout Options'),
@@ -163,6 +173,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     $this->configuration['max_width'] = $form_state->getValue(['layout', 'max_width']);
     $this->configuration['background_color'] = $form_state->getValue(['background', 'background_color']);
     $this->configuration['text_color'] = $form_state->getValue(['background', 'text_color']);
+    $this->configuration['background_pos'] = $form_state->getValue(['background', 'background_pos']);
 
     // File handling.
     $file_fields = [
@@ -244,6 +255,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       'layout--' . $this->getPluginDefinition()->getTemplate() . '--' . $this->configuration['column_widths'],
       $this->configuration['max_width'],
       $this->configuration['background_color'],
+      $this->configuration['background_pos'],
       $this->configuration['text_color'],
       $this->configuration['top_margin'],
       $this->configuration['bottom_margin'],
@@ -302,6 +314,28 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     }
 
     return $options;
+  }
+
+  /**
+   * Gets the background position options for the configuration form.
+   *
+   * The first option will be used as the default value.
+   *
+   * @return string[]
+   *   The background positions array where the keys are strings that will be
+   *   added to the CSS classes and the values are the human readable labels.
+   */
+  protected function getBackgroundPositions() {
+    return [
+      'layout--bg-cover' => $this->t('Centered (Default)'),
+      'layout--bg-c' => $this->t('Centered (without stretching to fill)'),
+      'layout--bg-br' => $this->t('Bottom Right'),
+      'layout--bg-tr' => $this->t('Top Right'),
+      'layout--bg-bl' => $this->t('Bottom Left'),
+      'layout--bg-tl' => $this->t('Top Left'),
+      'layout--bg-tc' => $this->t('Top Center'),
+      'layout--bg-bc' => $this->t('Bottom Center'),
+    ];
   }
 
   /**
