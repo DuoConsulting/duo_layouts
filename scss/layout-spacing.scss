@@ -141,6 +141,46 @@ $layout-breakpoint: $small-up;
   padding-bottom: 0;
 }
 
+// Negative top margins.
+.layout--padding-top-n-default {
+  .layout__container {
+    @media #{$small-up} {
+      margin-top: -1 * $layout-padding * 0.75;
+    }
+    @media #{$medium-up} {
+      margin-top: -1 * $layout-padding;
+    }
+    margin-top: -1 * $layout-padding * 0.5;
+    position: relative;
+  }
+}
+
+.layout--padding-top-n-half {
+  .layout__container {
+    @media #{$small-up} {
+      margin-top: -1 * ($layout-padding / 2) * 0.75;
+    }
+    @media #{$medium-up} {
+      margin-top: -1 * $layout-padding / 2;
+    }
+    margin-top: -1 * ($layout-padding / 2) * 0.5;
+    position: relative;
+  }
+}
+
+.layout--padding-top-n-quarter {
+  .layout__container {
+    @media #{$small-up} {
+      margin-top: -1 * ($layout-padding / 4) * 0.75;
+    }
+    @media #{$medium-up} {
+      margin-top: -1 * $layout-padding / 4;
+    }
+    margin-top: -1 * ($layout-padding / 4) * 0.5;
+    position: relative;
+  }
+}
+
 // Widths
 @for $width from 1 through 10 {
   .layout--width-#{$width}0 .layout__container {

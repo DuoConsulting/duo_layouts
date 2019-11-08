@@ -153,6 +153,57 @@
   padding-bottom: 0;
 }
 
+.layout--padding-top-n-default .layout__container {
+  margin-top: -2.34375rem;
+  position: relative;
+}
+
+@media only screen and (min-width: 48.0625em) {
+  .layout--padding-top-n-default .layout__container {
+    margin-top: -3.51562rem;
+  }
+}
+
+@media only screen and (min-width: 64.0625em) {
+  .layout--padding-top-n-default .layout__container {
+    margin-top: -4.6875rem;
+  }
+}
+
+.layout--padding-top-n-half .layout__container {
+  margin-top: -1.17188rem;
+  position: relative;
+}
+
+@media only screen and (min-width: 48.0625em) {
+  .layout--padding-top-n-half .layout__container {
+    margin-top: -1.75781rem;
+  }
+}
+
+@media only screen and (min-width: 64.0625em) {
+  .layout--padding-top-n-half .layout__container {
+    margin-top: -2.34375rem;
+  }
+}
+
+.layout--padding-top-n-quarter .layout__container {
+  margin-top: -0.58594rem;
+  position: relative;
+}
+
+@media only screen and (min-width: 48.0625em) {
+  .layout--padding-top-n-quarter .layout__container {
+    margin-top: -0.87891rem;
+  }
+}
+
+@media only screen and (min-width: 64.0625em) {
+  .layout--padding-top-n-quarter .layout__container {
+    margin-top: -1.17188rem;
+  }
+}
+
 .layout--width-10 .layout__container {
   max-width: 7.5rem;
 }

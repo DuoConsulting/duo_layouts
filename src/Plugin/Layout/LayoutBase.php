@@ -339,6 +339,9 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       'layout--padding-top-half' => $this->t('Half'),
       'layout--padding-top-quarter' => $this->t('Quarter'),
       'layout--padding-top-zero' => $this->t('Zero'),
+      'layout--padding-top-n-default' => $this->t('Default (Negative)'),
+      'layout--padding-top-n-half' => $this->t('Half (Negative)'),
+      'layout--padding-top-n-quarter' => $this->t('Quarter (Negative)'),
     ];
   }
 
