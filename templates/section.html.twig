@@ -13,29 +13,32 @@
 #}
 {% set classes = [] %}
 
-{% if attributes.background_video_url %}
+{% if settings.background_video_url %}
   {% set classes = classes|merge(['layout--video']) %}
 {% endif %}
 
-{% if attributes.background_image_url %}
+{% if settings.background_image_url %}
   {% set classes = classes|merge(['layout--image']) %}
 {% endif %}
 
 {% if content %}
+  {% if settings.parallax %}
+    {{ attach_library('duo_layouts/parallax') }}
+  {% endif %}
 
-  <div{{ attributes.addClass(classes) }} {% if attributes.background_image_url %}style="background-image: url({{ attributes.background_image_url }})"{% endif %}>
+  <div{{ attributes.addClass(classes) }} {% if settings.background_image_url %}style="background-image: url({{ settings.background_image_url.0 }})"{% endif %}>
 
-    {% if attributes.background_video_url %}
-      <div class="layout__video">
-        <video preload="auto" autoplay loop muted>
-          <source src="{{ attributes.background_video_url }}" />
+    {% if settings.background_video_url %}
+      <div class="layout__video{% if settings.parallax %} parallax{% endif %}">
+        <video preload="auto" autoplay loop muted playsinline>
+          <source src="{{ settings.background_video_url.0 }}" />
         </video>
       </div>
     {% endif %}
 
-    {% if attributes.background_image_url %}
-      <div class="layout__image">
-        <img src="{{ attributes.background_image_url }}" alt="" />
+    {% if settings.background_image_url %}
+      <div class="layout__image{% if settings.parallax %} parallax{% endif %}">
+        <img src="{{ settings.background_image_url.0 }}" alt="" />
       </div>
     {% endif %}
 

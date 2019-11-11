@@ -2,6 +2,8 @@
 
 @import 'layout-variables';
 
+$parallax-offset: 200px;
+
 // Background images and vides.
 .layout--image,
 .layout--video {
@@ -43,10 +45,6 @@
 }
 
 .layout__video {
-  @media #{$small-up} {
-    display: block;
-  }
-  display: none;
   height: 100%;
   left: 0;
   overflow: hidden;
@@ -55,14 +53,9 @@
   width: 100%;
 
   video {
-    height: auto !important; // To override inline styles assigned by module
-    left: 50%;
-    min-height: 100%;
-    min-width: 100%;
-    position: absolute;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    width: auto !important; // To override inline styles assigned by module
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }
 
@@ -121,29 +114,26 @@
 
 // Parallax
 .layout--parallax {
-  background-attachment: fixed;
+  overflow: hidden;
+
+  .layout__image,
+  .layout__video {
+    display: none;
+    height: calc(100% + #{$parallax-offset});
+  }
 }
 
-// IE doesn't support object-fit:cover, If object-fit is supported, and if we
-// are not displaying a parallax background, then hide the background image.
-
-// Replace the following statement with this once we are supporting parallax
-// background images.
-// html.object-fit .layout--image.layout-no-parallax {
-//   background-image: none !important;
-// }
-
+// IE doesn't support object-fit:cover, If object-fit is supported,
+// then hide the background image.
 html.object-fit .layout--image {
   background-image: none !important;
 }
 
-// If object fit is not supported, or if we are using parallax, hide the image
-// field.
+// If object fit is not supported, hide the image and video fields.
 html.no-object-fit .layout--image .layout__image,
-.layout--image.layout--parallax .layout__image {
-  display: none;
+html.no-object-fit .layout--video .layout__video {
+  display: none !important;
 }
-
 
 // Text Colors
 .layout--text-light * {

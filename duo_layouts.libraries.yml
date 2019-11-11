@@ -5,6 +5,7 @@ hero_section:
     theme:
       layouts/simple_section/simple-section.css: {}
 singlecol_section:
+  header: true
   version: 1.0
   css:
     theme:
@@ -14,6 +15,7 @@ singlecol_section:
   js:
     js/layouts.js: {}
 twocol_section:
+  header: true
   version: 1.0
   css:
     theme:
@@ -23,6 +25,7 @@ twocol_section:
   js:
     js/layouts.js: {}
 threecol_section:
+  header: true
   version: 1.0
   css:
     theme:
@@ -32,6 +35,7 @@ threecol_section:
   js:
     js/layouts.js: {}
 fourcol_section:
+  header: true
   version: 1.0
   css:
     theme:
@@ -40,3 +44,9 @@ fourcol_section:
       layouts/fourcol_section/fourcol-section.css: {}
   js:
     js/layouts.js: {}
+parallax:
+  version: 1.0
+  js:
+    js/parallax.js: {}
+  dependencies:
+    - core/jquery

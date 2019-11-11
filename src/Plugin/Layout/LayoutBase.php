@@ -31,6 +31,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     return [
       'background_image' => '',
       'background_video' => '',
+      'parallax'         => FALSE,
       'heading'          => '',
       'description'      => '',
       'max_width'        => array_shift($max_width_classes),
@@ -109,6 +110,13 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       '#default_value' => [$this->configuration['background_video']],
     ];
 
+    $form['background']['parallax'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Parallax Background'),
+      '#default_value' => $this->configuration['parallax'],
+      '#description' => $this->t('Apply a parallax effect to the background.'),
+    ];
+
     $form['background']['background_pos'] = [
       '#type' => 'select',
       '#title' => $this->t('Background Position'),
@@ -174,6 +182,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     $this->configuration['background_color'] = $form_state->getValue(['background', 'background_color']);
     $this->configuration['text_color'] = $form_state->getValue(['background', 'text_color']);
     $this->configuration['background_pos'] = $form_state->getValue(['background', 'background_pos']);
+    $this->configuration['parallax'] = $form_state->getValue(['background', 'parallax']);
 
     // File handling.
     $file_fields = [
@@ -236,7 +245,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     // Get the file url for the background image.
     if ($this->configuration['background_image']) {
       $file = File::load($this->configuration['background_image']);
-      $build['#attributes']['background_image_url'] = [
+      $build['#settings']['background_image_url'] = [
         $file->createFileUrl(),
       ];
     }
@@ -244,7 +253,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     // Get the file url for the background video.
     if ($this->configuration['background_video']) {
       $file = File::load($this->configuration['background_video']);
-      $build['#attributes']['background_video_url'] = [
+      $build['#settings']['background_video_url'] = [
         $file->createFileUrl(),
       ];
     }
@@ -260,6 +269,13 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
       $this->configuration['top_margin'],
       $this->configuration['bottom_margin'],
     ];
+
+    // Get the parallax setting.
+    if ($this->configuration['parallax']) {
+      if ($this->configuration['parallax'] == 1) {
+        $build['#attributes']['class'][] = 'layout--parallax';
+      }
+    }
 
     return $build;
   }
