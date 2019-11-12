@@ -81,32 +81,26 @@ $parallax-offset: 200px;
     }
 
     .layout--bg-br & {
-      object-fit: none;
       object-position: bottom right;
     }
 
     .layout--bg-tr & {
-      object-fit: none;
       object-position: top right;
     }
 
     .layout--bg-bl & {
-      object-fit: none;
       object-position: bottom left;
     }
 
     .layout--bg-tl & {
-      object-fit: none;
       object-position: top left;
     }
 
     .layout--bg-tc & {
-      object-fit: none;
       object-position: top center;
     }
 
     .layout--bg-bc & {
-      object-fit: none;
       object-position: bottom center;
     }
   }

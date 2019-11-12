@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: duo_layouts_max_1600
+label: 'Max 1600 (Duo Layouts)'
+effects:
+  70c828d2-b694-4be3-8417-11722908493f:
+    uuid: 70c828d2-b694-4be3-8417-11722908493f
+    id: image_scale
+    weight: 1
+    data:
+      width: 1600
+      height: null
+      upscale: false

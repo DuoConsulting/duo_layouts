@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: duo_layouts_max_2000
+label: 'Max 2000 (Duo Layouts)'
+effects:
+  cd7b4873-608c-41cf-b6e2-626857fc615b:
+    uuid: cd7b4873-608c-41cf-b6e2-626857fc615b
+    id: image_scale
+    weight: 1
+    data:
+      width: 2000
+      height: null
+      upscale: false

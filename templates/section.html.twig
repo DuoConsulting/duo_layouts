@@ -17,7 +17,7 @@
   {% set classes = classes|merge(['layout--video']) %}
 {% endif %}
 
-{% if settings.background_image_url %}
+{% if content.background_image %}
   {% set classes = classes|merge(['layout--image']) %}
 {% endif %}
 
@@ -26,7 +26,7 @@
     {{ attach_library('duo_layouts/parallax') }}
   {% endif %}
 
-  <div{{ attributes.addClass(classes) }} {% if settings.background_image_url %}style="background-image: url({{ settings.background_image_url.0 }})"{% endif %}>
+  <div{{ attributes.addClass(classes) }} {% if content.background_image %}style="background-image: url({{ content.background_image['#image_url'] }})"{% endif %}>
 
     {% if settings.background_video_url %}
       <div class="layout__video{% if settings.parallax %} parallax{% endif %}">
@@ -36,9 +36,9 @@
       </div>
     {% endif %}
 
-    {% if settings.background_image_url %}
+    {% if content.background_image %}
       <div class="layout__image{% if settings.parallax %} parallax{% endif %}">
-        <img src="{{ settings.background_image_url.0 }}" alt="" />
+        {{ content.background_image }}
       </div>
     {% endif %}
 

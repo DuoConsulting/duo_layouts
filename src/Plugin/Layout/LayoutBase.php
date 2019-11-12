@@ -245,9 +245,23 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     // Get the file url for the background image.
     if ($this->configuration['background_image']) {
       $file = File::load($this->configuration['background_image']);
-      $build['#settings']['background_image_url'] = [
-        $file->createFileUrl(),
-      ];
+
+      if (\Drupal::service('module_handler')->moduleExists('responsive_image') &&
+          $style = \Drupal::entityTypeManager()->getStorage('responsive_image_style')->load('duo_layouts_backgrounds')) {
+        $build['background_image'] = [
+          '#theme' => 'responsive_image',
+          '#width' => '200',
+          '#height' => '200',
+          '#responsive_image_style_id' => 'duo_layouts_backgrounds',
+          '#uri' => $file->getFileUri(),
+          '#image_url' => $file->createFileUrl(),
+        ];        
+      } else {
+        $build['background_image'] = [
+          '#markup' => '<img src="' . $file->createFileUrl() . '" alt="" />',
+          '#image_url' => $file->createFileUrl(),
+        ];
+      }
     }
 
     // Get the file url for the background video.

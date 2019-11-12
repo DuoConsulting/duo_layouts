@@ -73,32 +73,26 @@
 }
 
 .layout--bg-br .layout__image img {
-  object-fit: none;
   object-position: bottom right;
 }
 
 .layout--bg-tr .layout__image img {
-  object-fit: none;
   object-position: top right;
 }
 
 .layout--bg-bl .layout__image img {
-  object-fit: none;
   object-position: bottom left;
 }
 
 .layout--bg-tl .layout__image img {
-  object-fit: none;
   object-position: top left;
 }
 
 .layout--bg-tc .layout__image img {
-  object-fit: none;
   object-position: top center;
 }
 
 .layout--bg-bc .layout__image img {
-  object-fit: none;
   object-position: bottom center;
 }
 

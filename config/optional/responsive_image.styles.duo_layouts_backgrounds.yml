@@ -1,0 +1,45 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.duo_layouts_max_1000
+    - image.style.duo_layouts_max_1600
+    - image.style.duo_layouts_max_2000
+    - image.style.duo_layouts_max_4000
+  module:
+    - duo_layouts
+id: duo_layouts_backgrounds
+label: 'Duo Layouts Backgrounds'
+image_style_mappings:
+  -
+    breakpoint_id: duo_layouts.large
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: duo_layouts_max_2000
+  -
+    breakpoint_id: duo_layouts.large
+    multiplier: 2x
+    image_mapping_type: image_style
+    image_mapping: duo_layouts_max_4000
+  -
+    breakpoint_id: duo_layouts.medium
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: duo_layouts_max_1000
+  -
+    breakpoint_id: duo_layouts.medium
+    multiplier: 2x
+    image_mapping_type: image_style
+    image_mapping: duo_layouts_max_2000
+  -
+    breakpoint_id: duo_layouts.small
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: duo_layouts_max_1000
+  -
+    breakpoint_id: duo_layouts.small
+    multiplier: 2x
+    image_mapping_type: image_style
+    image_mapping: duo_layouts_max_1600
+breakpoint_group: duo_layouts
+fallback_image_style: duo_layouts_max_1600

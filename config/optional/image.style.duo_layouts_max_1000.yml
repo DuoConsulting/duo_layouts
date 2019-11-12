@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: duo_layouts_max_1000
+label: 'Max 1000 (Duo Layouts)'
+effects:
+  7189a70f-36ec-4d6b-83dc-e5f56b30b5e9:
+    uuid: 7189a70f-36ec-4d6b-83dc-e5f56b30b5e9
+    id: image_scale
+    weight: 1
+    data:
+      width: 1000
+      height: null
+      upscale: false
