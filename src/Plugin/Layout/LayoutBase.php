@@ -20,6 +20,8 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
+    $configuration = parent::defaultConfiguration();
+
     $max_width_classes    = array_keys($this->getMaxWidthOptions());
     $bg_colors            = array_keys($this->getBackgroundColors());
     $text_colors          = array_keys($this->getTextColors());
@@ -28,7 +30,7 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
     $bottom_margins       = array_keys($this->getBottomMarginOptions());
     $bg_position          = array_keys($this->getBackgroundPositions());
 
-    return [
+    return $configuration + [
       'background_image' => '',
       'background_video' => '',
       'parallax'         => FALSE,
@@ -48,6 +50,9 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildConfigurationForm($form, $form_state);
+    $form['label']['#weight'] = -1000;
+
     $form['heading'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Section Heading'),
@@ -176,6 +181,8 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
    * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    parent::submitConfigurationForm($form, $form_state);
+
     $this->configuration['heading'] = $form_state->getValue('heading');
     $this->configuration['description'] = $form_state->getValue('description');
     $this->configuration['max_width'] = $form_state->getValue(['layout', 'max_width']);
