@@ -52,6 +52,8 @@ abstract class LayoutBase extends LayoutDefault implements PluginFormInterface {
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildConfigurationForm($form, $form_state);
     $form['label']['#weight'] = -1000;
+    $form['label']['#title'] = $this->t('Administrative Label');
+    $form['label']['#description'] = $this->t('The administrative label appears only on the layout screen interface.');
 
     $form['heading'] = [
       '#type' => 'textfield',
