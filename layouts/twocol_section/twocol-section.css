@@ -13,7 +13,7 @@
   flex: 0 1 100%;
 }
 
-@media screen and (min-width: 40em) {
+@media screen and (min-width: 40.0625em) {
   .layout--twocol-section--50-50 > .layout__container > .layout__content > .layout__region--first,
   .layout--twocol-section--50-50 > .layout__container > .layout__content > .layout__region--second {
     flex: 0 1 50%;

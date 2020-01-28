@@ -5,14 +5,14 @@
   padding: 0 1.25rem;
 }
 
-@media only screen and (min-width: 48.0625em) {
+@media only screen and (min-width: 40.0625em) {
   .layout__content {
     margin-left: -0.75rem;
     margin-right: -0.75rem;
   }
 }
 
-@media only screen and (min-width: 48.0625em) {
+@media only screen and (min-width: 40.0625em) {
   .layout__region {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
@@ -23,7 +23,7 @@
   margin-top: 1.5rem;
 }
 
-@media only screen and (min-width: 48.0625em) {
+@media only screen and (min-width: 40.0625em) {
   .layout__region + .layout__region {
     margin-top: 0;
   }

@@ -13,7 +13,7 @@
   flex: 0 1 100%;
 }
 
-@media screen and (min-width: 40em) {
+@media screen and (min-width: 40.0625em) {
   .layout--threecol-section--25-50-25 > .layout__container > .layout__content > .layout__region--first,
   .layout--threecol-section--25-50-25 > .layout__container > .layout__content > .layout__region--third,
   .layout--threecol-section--25-25-50 > .layout__container > .layout__content > .layout__region--first,
