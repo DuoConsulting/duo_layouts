@@ -50,3 +50,8 @@ parallax:
     js/parallax.js: {}
   dependencies:
     - core/jquery
+ckeditor-fix:
+  js:
+    js/ckeditor-fix.js: {}
+  dependencies:
+    - core/jquery.ui.dialog

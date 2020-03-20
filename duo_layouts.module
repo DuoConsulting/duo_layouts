@@ -40,3 +40,29 @@ function duo_layouts_plugin_filter_layout__layout_builder_alter(array &$definiti
 function duo_layouts_form_node_layout_builder_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['revision']['#access'] = FALSE;
 }
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function duo_layouts_preprocess_page(&$variables) {
+  // Just in case library isn't defined yet, go ahead and define it.
+  if (!isset($variables['#attached']['library'])) {
+    $variables['#attached']['library'] = [];
+  }
+
+  // Add libraries.
+  if (is_array($variables['#attached']['library'])) {
+    // If the user has permission to add content, then add our script to fix
+    // issues with modals in layout builder.
+    //
+    // This is the issue:
+    // https://stackoverflow.com/questions/19570661/ckeditor-plugin-text-fields-not-editable
+    // https://www.drupal.org/project/drupal/issues/3065095
+    //
+    // This is where the final solution was found:
+    // https://stackoverflow.com/a/28086465
+    if ($variables['user']->hasPermission('access content overview')) {
+      $variables['#attached']['library'][] = 'duo_layouts/ckeditor-fix';
+    }
+  }
+}
