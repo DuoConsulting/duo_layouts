@@ -29,6 +29,16 @@
     flex: 0 1 67%;
   }
 
+  .layout--twocol-section--40-60 > .layout__container > .layout__content > .layout__region--first,
+  .layout--twocol-section--60-40 > .layout__container > .layout__content > .layout__region--second {
+    flex: 0 1 40%;
+  }
+
+  .layout--twocol-section--40-60 > .layout__container > .layout__content > .layout__region--second,
+  .layout--twocol-section--60-40 > .layout__container > .layout__content > .layout__region--first {
+    flex: 0 1 60%;
+  }
+
   .layout--twocol-section--25-75 > .layout__container > .layout__content > .layout__region--first,
   .layout--twocol-section--75-25 > .layout__container > .layout__content > .layout__region--second {
     flex: 0 1 25%;
